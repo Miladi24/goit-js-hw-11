@@ -1,4 +1,3 @@
-hideLoader();
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -9,7 +8,7 @@ import {
   showLoader,
   hideLoader,
 } from './js/render-functions';
-
+hideLoader();
 let query;
 const search = document.querySelector('form');
 search.addEventListener('submit', clickSearch);
