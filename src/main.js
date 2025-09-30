@@ -31,7 +31,6 @@ function clickSearch(event) {
   getImagesByQuery(query)
     .then(data => {
       if (!data.hits.length) {
-        hideLoader();
         iziToast.show({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -40,31 +39,12 @@ function clickSearch(event) {
       }
 
       createGallery(data.hits);
-
-      const images = document.querySelectorAll('.gallery-image');
-      let loadedCount = 0;
-
-      images.forEach(img => {
-        if (img.complete) {
-          loadedCount++;
-          if (loadedCount === images.length) hideLoader();
-        } else {
-          img.addEventListener('load', () => {
-            loadedCount++;
-            if (loadedCount === images.length) hideLoader();
-          });
-          img.addEventListener('error', () => {
-            loadedCount++;
-            if (loadedCount === images.length) hideLoader();
-          });
-        }
-      });
     })
     .catch(error => {
       iziToast.show({ message: error.message, backgroundColor: 'red' });
-      hideLoader();
     })
     .finally(() => {
+      hideLoader();   // ❗ тепер гарантовано ховаємо лоадер
       search.reset();
     });
 }
@@ -75,3 +55,4 @@ iziToast.settings({
   messageSize: '20',
   timeout: 3000,
 });
+
