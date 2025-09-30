@@ -8,17 +8,17 @@ import {
   showLoader,
   hideLoader,
 } from './js/render-functions';
-hideLoader();
-let query;
+
 const search = document.querySelector('form');
 search.addEventListener('submit', clickSearch);
 
 function clickSearch(event) {
   event.preventDefault();
   clearGallery();
-  query = event.target.elements['search-text'].value.trim();
 
-  if (query.trim() === '') {
+  const query = event.target.elements['search-text'].value.trim();
+
+  if (query === '') {
     iziToast.show({
       message: 'Please, type some text',
     });
@@ -38,11 +38,30 @@ function clickSearch(event) {
         });
         return;
       }
+
       createGallery(data.hits);
-      hideLoader();
+
+      const images = document.querySelectorAll('.gallery-image');
+      let loadedCount = 0;
+
+      images.forEach(img => {
+        if (img.complete) {
+          loadedCount++;
+          if (loadedCount === images.length) hideLoader();
+        } else {
+          img.addEventListener('load', () => {
+            loadedCount++;
+            if (loadedCount === images.length) hideLoader();
+          });
+          img.addEventListener('error', () => {
+            loadedCount++;
+            if (loadedCount === images.length) hideLoader();
+          });
+        }
+      });
     })
-    .catch(message => {
-      iziToast.show({ message, backgroundColor: 'red' });
+    .catch(error => {
+      iziToast.show({ message: error.message, backgroundColor: 'red' });
       hideLoader();
     })
     .finally(() => {

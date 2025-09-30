@@ -1,52 +1,35 @@
 .loader {
-  width: 30px;
-  height: 30px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  position: absolute;
-  color: #02551e;
-  right: 0;
+  display: inline-block;
+  position: relative;
+  border: 2px solid #84c6e3;
   box-sizing: border-box;
-  animation: shadowRolling 1.5s linear infinite;
+  animation: rotation 1s linear infinite;
+  margin: 0 auto;
+  margin-top: 24px;
 }
-.hidden {
-  display: none;
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border: 2px solid #fff;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
-@keyframes shadowRolling {
+@keyframes rotation {
   0% {
-    box-shadow: 0 0 rgba(255, 255, 255, 0), 0 0 rgba(255, 255, 255, 0),
-      0 0 rgba(255, 255, 255, 0), 0 0 rgba(255, 255, 255, 0);
-  }
-  12% {
-    box-shadow: -100px 0 rgb(1, 54, 10), 0 0 rgba(255, 255, 255, 0),
-      0 0 rgba(255, 255, 255, 0), 0 0 rgba(255, 255, 255, 0);
-  }
-  25% {
-    box-shadow: -110px 0 rgb(1, 54, 10), -100px 0 rgb(1, 54, 10),
-      0 0 rgba(255, 255, 255, 0), 0 0 rgba(255, 255, 255, 0);
-  }
-  36% {
-    box-shadow: -120px 0 rgb(1, 54, 10), -110px 0 rgb(1, 54, 10),
-      -100px 0 rgb(1, 54, 10), 0 0 rgba(255, 255, 255, 0);
-  }
-  50% {
-    box-shadow: -130px 0 rgb(1, 54, 10), -120px 0 rgb(1, 54, 10),
-      -110px 0 rgb(1, 54, 10), -100px 0 rgb(1, 54, 10);
-  }
-  62% {
-    box-shadow: -200px 0 rgba(255, 255, 255, 0), -130px 0 rgb(1, 54, 10),
-      -120px 0 rgb(1, 54, 10), -110px 0 rgb(1, 54, 10);
-  }
-  75% {
-    box-shadow: -200px 0 rgba(255, 255, 255, 0), -200px 0 rgba(255, 255, 255, 0),
-      -130px 0 rgb(1, 54, 10), -120px 0 rgb(1, 54, 10);
-  }
-  87% {
-    box-shadow: -200px 0 rgba(255, 255, 255, 0), -200px 0 rgba(255, 255, 255, 0),
-      -200px 0 rgba(255, 255, 255, 0), -130px 0 rgb(1, 54, 10);
+    transform: rotate(0deg);
   }
   100% {
-    box-shadow: -200px 0 rgba(255, 255, 255, 0), -200px 0 rgba(255, 255, 255, 0),
-      -200px 0 rgba(255, 255, 255, 0), -200px 0 rgba(255, 255, 255, 0);
+    transform: rotate(360deg);
   }
+}
+.loader.active {
+  display: block;
 }
